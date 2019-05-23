@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 @Service
 public class MyService {
     public void writeObject(JsonGenerator jg){
-        IntStream.rangeClosed(0,1000).forEach(i-> {
+        IntStream.rangeClosed(0,10000).forEach(i-> {
             try {
                 jg.writeObject("entry:"+i);
                 jg.flush();

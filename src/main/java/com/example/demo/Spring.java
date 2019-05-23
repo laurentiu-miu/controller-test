@@ -28,9 +28,9 @@ public class Spring {
 
     @GetMapping(value = "/spring/getInts", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<StreamingResponseBody> getInts() {
-        System.out.println("Thread Name controller:"+Thread.currentThread().getName());
+        System.out.println("Spring Thread Name controller:"+Thread.currentThread().getName());
         StreamingResponseBody streamingOutput = output -> {
-            System.out.println("Thread Name stream:"+Thread.currentThread().getName());
+            System.out.println("Spring Thread Name stream:"+Thread.currentThread().getName());
             long start_s = System.currentTimeMillis();
             JsonGenerator jg = objectMapper.getFactory().createGenerator(output, JsonEncoding.UTF8);
             jg.writeStartObject();

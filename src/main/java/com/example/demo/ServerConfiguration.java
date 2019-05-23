@@ -38,7 +38,7 @@ public class ServerConfiguration {
             connector.setEnableLookups(false);
 
             //no maximum here
-           // connector.setMaxPostSize(maxPostSize);
+            connector.setMaxPostSize(maxPostSize);
 
             Http11Nio2Protocol proto = ((Http11Nio2Protocol) connector.getProtocolHandler());
 

@@ -35,12 +35,12 @@ public class Jersey {
 
     @GET
     public void getAll(@Suspended AsyncResponse response) {
-        System.out.println("Thread Name controller:"+Thread.currentThread().getName());
+        System.out.println("Jeresy Thread Name controller:"+Thread.currentThread().getName());
         try {
 
             StreamingOutput streamingOutput = output -> {
                 long start_s = System.currentTimeMillis();
-                System.out.println("Thread Name stream:"+Thread.currentThread().getName());
+                System.out.println("Jeresy Thread Name stream:"+Thread.currentThread().getName());
                 JsonGenerator jg = objectMapper.getFactory().createGenerator(output, JsonEncoding.UTF8);
                 jg.writeStartObject();
                 jg.writeStringField("entry", UUID.randomUUID().toString());

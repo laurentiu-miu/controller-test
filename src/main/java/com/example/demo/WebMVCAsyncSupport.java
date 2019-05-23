@@ -19,12 +19,12 @@ public class WebMVCAsyncSupport implements WebMvcConfigurer {
     @Bean
     public AsyncTaskExecutor asyncTaskExecutor() {
         final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(1003);
-        //executor.setMaxPoolSize(100);
-        //executor.setQueueCapacity(2000);
+        executor.setCorePoolSize(10);
+        executor.setMaxPoolSize(100);
+        executor.setQueueCapacity(2000);
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
         executor.setWaitForTasksToCompleteOnShutdown(true);
-        executor.setThreadNamePrefix("test-l-");
+        executor.setThreadNamePrefix("test-aync-spring-");
         return executor;
     }
 
