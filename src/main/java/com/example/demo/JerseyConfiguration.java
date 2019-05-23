@@ -3,11 +3,11 @@ package com.example.demo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
-import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+//import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
@@ -26,7 +26,7 @@ public class JerseyConfiguration extends ResourceConfig {
     @Autowired
     ObjectMapper objectMapper;
 
-    @Autowired
+    /*@Autowired
     public JerseyConfiguration() {
         ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
         provider.addIncludeFilter(new AnnotationTypeFilter(Path.class));
@@ -41,5 +41,20 @@ public class JerseyConfiguration extends ResourceConfig {
         JacksonJaxbJsonProvider provider2 = new JacksonJaxbJsonProvider();
         provider2.setMapper(objectMapper);
         register(provider2);
+    }*/
+
+    @Autowired
+    public JerseyConfiguration(CorsResponseFilter responseFilter) {
+        packages("com.example.demo");
+        property(ServerProperties.WADL_FEATURE_DISABLE, true); // required for swagger
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JSR310Module());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        // create JsonProvider to provide custom ObjectMapper
+        JacksonJaxbJsonProvider provider = new JacksonJaxbJsonProvider();
+        provider.setMapper(mapper);
+        register(provider);
     }
 }

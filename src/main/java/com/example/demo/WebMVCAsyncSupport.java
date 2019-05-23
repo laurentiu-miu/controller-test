@@ -13,9 +13,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * Created by LaurentiuM on 2019-05-15.
  */
-@Configuration
-@EnableAsync
-public class WebMVCAsyncSupport implements WebMvcConfigurer {
+//@Configuration
+//@EnableAsync
+public class WebMVCAsyncSupport/* implements WebMvcConfigurer*/ {
     @Bean
     public AsyncTaskExecutor asyncTaskExecutor() {
         final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -28,7 +28,7 @@ public class WebMVCAsyncSupport implements WebMvcConfigurer {
         return executor;
     }
 
-    @Override
+    //@Override
     public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
         configurer.setTaskExecutor(asyncTaskExecutor());
         configurer.setDefaultTimeout(Integer.MAX_VALUE);
